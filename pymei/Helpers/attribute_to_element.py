@@ -36,3 +36,20 @@ def switch_tie(meifile, tstamp = False, keep_id = False):
 				measure.add_child(tie)
 		#remove tie attribute
 		n.remove_attribute('tie')
+		
+def switch_slur(meifile, tstamp = False, keep_id = False, force_ts = False):
+    ''' Change all slurs expressed with attributes into elements.
+    If tstamp is set, it will attempt to generate tstampt instead of stardid/endid pairs.
+    
+    NB: using tstamp only might not be possible, for example when landing on ties; force keep_id in those cases (if not rest or not note)
+    '''
+    meifile_flat = meifile.flat()
+
+    for n in meifile_flat:
+        if n.has_attribute('slur'):
+            if n.slur=='i' or n.slur=='m':
+                measure = n.ancestor_by_name('measure')
+		#create a slur element
+		slur = mod.slur_()
+    
+    
